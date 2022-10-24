@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="row mt-5 mb-5 justify-content-center">
+    <div class="col-md-11">
+      <h3 class="ml-3 mb-0"><span style="background-color: silver">注文履歴詳細</span></h3>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-7">
+      <h5>注文情報</h5>
+      <table class="table table-bordered" style="border: 1.5px solid black">
+        <tr style="height: 50px">
+          <th class="px-1 h6 align-middle" style="border: 1.5px solid black; background-color: silver">注文日</th>
+          <td class="p-1 align-middle h6"><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+        <tr style="height: 50px">
+          <th class="px-1 h6" style="border: 1.5px solid black; background-color: silver">配送先</th>
+          <td class="p-1 align-middle h6" style="border: 1.5px solid black">
+            <%= "〒" + @order.postal_code %><br />
+            <%= @order.address %><br />
+            <%= @order.name %>
+          </td>
+        </tr>
+        <tr style="height: 50px">
+          <th class="px-1 h6 align-middle" style="border: 1.5px solid black; background-color: silver">支払方法</th>
+          <td class="p-1 align-middle h6"><%= @order.payment_method_i18n %></td>
+        </tr>
+        <tr style="height: 50px">
+          <th class="px-1 h6 align-middle" style="border: 1.5px solid black; background-color: silver">ステータス</th>
+          <td class="p-1 align-middle h6" style="border: 1.5px solid black"><%= @order.order_status_i18n %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-3">
+      <h5>請求情報</h5>
+      <table class="table table-bordered" style="border: 1.5px solid black">
+        <tr style="height: 50px">
+          <th class="px-1 h6 w-50 align-middle" style="border: 1.5px solid black; background-color: silver">商品合計</th>
+          <td class="p-1 align-middle h6"><%= (@order.billing_amount - @order.shipping_fee).to_s(:delimited) %></td>
+        </tr>
+        <tr style="height: 50px">
+          <th class="px-1 h6 align-middle" style="border: 1.5px solid black; background-color: silver">配送料</th>
+          <td class="p-1 align-middle h6" style="border: 1.5px solid black"><%= @order.shipping_fee %></td>
+        </tr>
+        <tr style="height: 50px">
+          <th class="px-1 h6 font-weight-bold align-middle" style="border: 1.5px solid black; background-color: silver">ご請求額</th>
+          <td class="p-1 align-middle h6 font-weight-bold"><%= @order.billing_amount.to_s(:delimited) %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-7">
+      <h5>注文内容</h5>
+      <table class="table table-bordered" style="border: 1.5px solid black">
+        <thead style="background-color: silver">
+          <tr style="height: 50px">
+            <th class="px-1 h6 align-middle" style="border: 1.5px solid black; width: 40%">商品名</th>
+            <th class="px-1 h6 align-middle" style="border: 1.5px solid black; width: 15%">単価 (税込)</th>
+            <th class="px-1 h6 align-middle" style="border: 1.5px solid black; width: 15%">個数</th>
+            <th class="px-1 h6 align-middle" style="border: 1.5px solid black; width: 15%">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @order.order_items.each do |order_item| %>
+          <tr style="border-bottom: 1.5px solid black; height: 50px">
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black">
+              <%= order_item.item.name %>
+            </td>
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black">
+              <%= order_item.item.add_tax_price.to_s(:delimited) %>
+            </td>
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black">
+              <%= order_item.number %>
+            </td>
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black"><%= order_item.subtotal.to_s(:delimited) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

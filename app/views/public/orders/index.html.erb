@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row mt-5 mb-3 justify-content-center">
+    <div class="col-md-11">
+      <h3 class="ml-3 mb-0"><span style="background-color: silver">注文履歴一覧</span></h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 px-0">
+      <table class="table table-bordered" style="border: 1.5px solid black">
+        <thead style="background-color: silver">
+          <tr style="height: 50px">
+            <th class="px-1 h6 align-middle" style="border: 1.5px solid black; width: 10%">注文日</th>
+            <th class="px-1 h6 align-middle" style="border: 1.5px solid black; width: 45%">配送先</th>
+            <th class="px-1 h6 align-middle" style="border: 1.5px solid black; width: 18%">注文商品</th>
+            <th class="px-1 h6 align-middle" style="border: 1.5px solid black; width: 8%">支払金額</th>
+            <th class="px-1 h6 align-middle" style="border: 1.5px solid black; width: 9%">ステータス</th>
+            <th class="px-1 h6 align-middle" style="border: 1.5px solid black; width: 10%">注文詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @orders.each do |order| %>
+          <tr style="border-bottom: 1.5px solid black; height: 50px">
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black">
+              <%= order.created_at.strftime('%Y/%m/%d') %>
+            </td>
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black">
+              <%= "〒" + order.postal_code %><br />
+              <%= order.address %><br />
+              <%= order.name %>
+            </td>
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black">
+              <% order.order_items.each do |order_item| %>
+              <%= order_item.item.name %><br />
+              <% end %>
+            </td>
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black">
+              <%= order.billing_amount.to_s(:delimited) %>円
+            </td>
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black">
+              <%= order.order_status_i18n %>
+            </td>
+            <td class="p-1 align-middle text-center h6" style="border-right: 1.5px solid black">
+              <%= link_to "表示する", order_path(order.id), class: 'btn btn-primary' %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

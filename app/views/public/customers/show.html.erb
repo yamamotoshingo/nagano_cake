@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row my-5">
+    <div class="col-md-4 text-center">
+      <h3><span style="background-color: silver">マイページ</span></h3>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-4 d-flex align-items-center">
+      <span class="h5 mb-0 mr-4">登録情報</span>
+      <%= link_to "編集する", edit_customer_information_path, class: 'btn btn-success', style: "width: 35%" %>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <table class="table table-bordered", style="border: 1.5px solid black">
+        <tr style="border: 1.5px solid black">
+          <th class="table-active", style="border: 1.5px solid black">氏名</th>
+          <td><%= @customer.last_name + "　" + @customer.first_name %></td>
+        </tr>
+        <tr style="border: 1.5px solid black">
+          <th class="table-active", style="border: 1.5px solid black">カナ</th>
+          <td><%= @customer.last_name_kana + "　" + @customer.first_name_kana %></td>
+        </tr>
+        <tr style="border-bottom: 1.5px solid black">
+          <th class="table-active", style="border-right: 1.5px solid black">郵便番号</th>
+          <td><%= @customer.postal_code %></td>
+        </tr>
+        <tr style="border-bottom: 1.5px solid black">
+          <th class="table-active", style="border-right: 1.5px solid black">住所</th>
+          <td><%= @customer.address %></td>
+        </tr>
+        <tr style="border-bottom: 1.5px solid black">
+          <th class="table-active", style="border-right: 1.5px solid black">電話番号</th>
+          <td><%= @customer.telephone_number %></td>
+        </tr>
+        <tr style="border-bottom: 1.5px solid black">
+          <th class="table-active", style="border-right: 1.5px solid black">メールアドレス</th>
+          <td><%= @customer.email %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-4 d-flex align-items-center">
+      <span class="h5 mb-0 mr-4">配送先　</span>
+      <%= link_to "一覧を見る", addresses_path, class: 'btn btn-primary', style: "width: 35%" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 d-flex align-items-center">
+      <span class="h5 mb-0 mr-4">注文履歴</span>
+      <%= link_to "一覧を見る", orders_path, class: 'btn btn-primary', style: "width: 35%" %>
+  </div>
+</div>

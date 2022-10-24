@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row my-5">
+    <div class="col-md-4 text-center">
+      <h3><span style="background-color: silver">ログイン</span></h3>
+    </div>
+  </div>
+
+  <%= form_with model: @customer, url: session_path(resource_name) do |f| %>
+  <div class="row mb-4">
+    <div class="col-md-7 text-center">
+      <h4><span style="background-color: silver">会員の方はこちらからログイン</span></h4>
+    </div>
+  </div>
+
+  <div class="row field justify-content-center mb-2">
+    <div class="col-md-2">
+      <%= f.label :email, "メールアドレス" %>
+    </div>
+    <div class="col-md-5">
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com", class: 'w-100' %>
+    </div>
+  </div>
+
+  <div class="row field justify-content-center mb-4">
+    <div class="col-md-2">
+      <%= f.label :password, "パスワード" %>
+    </div>
+    <div class="col-md-5">
+      <%= f.password_field :password, autocomplete: "current-password", class: 'w-100' %>
+    </div>
+  </div>
+
+  <div class="row actions justify-content-center mb-5">
+    <div class="col-md-2"></div>
+    <div class="col-md-5">
+    <%= f.submit "ログイン", class: 'btn btn-primary', style: "width: 30%" %>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="row mb-3">
+    <div class="col-md-7 text-center">
+      <h4><span style="background-color: silver">会員登録がお済みでない方</span></h4>
+    </div>
+  </div>
+
+<%= render "public/shared/links" %>
+</div>

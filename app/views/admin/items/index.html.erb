@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 mx-auto d-flex justify-content-between">
+      <h3 class="my-5 text-center", style="background-color: silver; width: 20%">商品一覧</h3>
+      <%= link_to new_admin_item_path, class: 'btn rounded-circle shadow my-5' do %>
+      <i class="fa-solid fa-plus fa-2x "></i>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <table class="table w-100 text-left table-condensed border-bottom">
+        <thead style="background-color: silver">
+          <tr>
+            <th class="text-center", style="width: 10%">商品ID</th>
+            <th style="width: 30%">商品名</th>
+            <th style="width: 10%">税抜価格</th>
+            <th style="width: 10%">ジャンル</th>
+            <th style="width: 20%">ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @items.each do |item| %>
+          <tr>
+            <td class="text-center">
+            <%= item.id %>
+            </td>
+            <td>
+            <%= link_to admin_item_path(item.id), class: 'text-dark', style: 'text-decoration: underline' do %>
+            <%= item.name %>
+            <% end %>
+            </td>
+            <td>
+            <%= item.price.to_s(:delimited) %>
+            </td>
+            <td>
+            <%= item.genre.name %>
+            </td>
+            <td>
+            <% if item.is_active %>
+            <span class="text-success font-weight-bold">販売中</span>
+            <% else %>
+            <span class="text-black-50 font-weight-bold">販売停止中</span>
+            <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <%= paginate @items %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 mx-auto">
+      <h3 class="my-5 text-center", style="background-color: silver; width: 30%">注文履歴詳細</h3>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-2">
+      <h5 class="font-weight-bold">購入者</h5>
+    </div>
+    <div class="col-md-4">
+      <%= link_to admin_customer_path(@order.customer_id), class: 'text-dark h5', style: 'text-decoration: underline' do %>
+      <%= @order.customer.last_name + @order.customer.first_name %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-md-2">
+      <h5 class="font-weight-bold">注文日</h5>
+    </div>
+    <div class="col-md-4 h5">
+      <%= @order.created_at.strftime('%Y/%m/%d') %>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-md-2">
+      <h5 class="font-weight-bold">配送先</h5>
+    </div>
+    <div class="col-md-9 h5">
+      <%= @order.postal_code + " " + @order.address %></br>
+      <%= @order.name %>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-md-2">
+      <h5 class="font-weight-bold">支払方法</h5>
+    </div>
+    <div class="col-md-4 h5">
+      <%= @order.payment_method_i18n %>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-md-2">
+      <h5 class="font-weight-bold">注文ステータス</h5>
+    </div>
+    <div class="col-md-4">
+      <%= form_with model: @order, url: admin_order_path(@order.id), method: :patch, class: 'h5' do |f| %>
+      <%= f.select :order_status, Order.order_statuses_i18n.map { |k, v| [v, k]}, {prompt: "--選択してください--", selected: @order.order_status}, class: 'text-center mr-5' %>
+      <%= f.submit '更新', class: 'btn btn-success btn-sm' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <table class="table text-left table-condensed border-bottom">
+        <thead style="background-color: silver">
+          <tr>
+            <th style="width: 33%">商品名</th>
+            <th class="text-center", style="width: 14%">単価(税込)</th>
+            <th style="width: 10%">数量</th>
+            <th style="width: 10%">小計</th>
+            <th style="witdh: 33%">制作ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @order.order_items.each do |order_item| %>
+          <tr>
+            <td style="vertical-align: middle">
+            <%= order_item.item.name %>
+            </td>
+            <td style="vertical-align: middle">
+            <div class="w-50 text-left mx-auto"><%= order_item.price_including_tax.to_s(:delimited) %></div>
+            </td>
+            <td style="vertical-align: middle">
+            <div class="w-50 text-left mx-auto"><%= order_item.number %></div>
+            </td>
+            <td style="vertical-align: middle">
+            <%= order_item.subtotal.to_s(:delimited) %>
+            </td>
+            <td>
+            <%= form_with model: order_item, url: admin_order_item_path(order_item.id), class: 'd-flex justify-content-between' do |f| %>
+            <%= f.select :production_status, OrderItem.production_statuses_i18n.map { |k, v| [v, k] }, {prompt: "--選択してください--", selected: order_item.production_status}, class: 'text-center', style: "width: 70%" %>
+            <%= f.submit '更新', class: 'btn btn-success btn-sm' %>
+            <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-3 offset-md-1 mb-3 align-self-end">
+      <div class="row mb-2">
+        <div class="col-md-7">
+          <h5 class="font-weight-bold">商品合計</h5>
+        </div>
+        <div class="col-md-5 h5">
+          <%= (@order.billing_amount - @order.shipping_fee).to_s(:delimited) %>円
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-7">
+          <h5 class="font-weight-bold">送料</h5>
+        </div>
+        <div class="col-md-5 h5">
+          <%= @order.shipping_fee.to_s(:delimited) %>円
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          <h5 class="font-weight-bold">請求金額合計</h5>
+        </div>
+        <div class="col-md-5 h5 font-weight-bold">
+          <%= @order.billing_amount.to_s(:delimited) %>円
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

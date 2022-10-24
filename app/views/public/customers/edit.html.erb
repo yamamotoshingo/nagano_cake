@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="row my-5">
+    <div class="col-md-4 text-center">
+      <h3><span style="background-color: silver">会員情報編集</span></h3>
+    </div>
+  </div>
+
+  <% if @customer.errors.any? %>
+　 <div id="error_explanation" class="w-50" style="border: 1.5px solid red">
+　 <%= @customer.errors.count %>件のエラーが発生しました
+　   <ul class="mb-0">
+　   <% @customer.errors.full_messages.each do |message| %>
+　     <li><%= message %></li>
+　   <% end %>
+　   </ul>
+　 </div>
+　<% end %>
+  <%= form_with model: @customer, url: customer_information_path do |f| %>
+  <div class="row field mb-3">
+    <div class="col-md-2 d-flex align-items-center">
+      <label class="mb-0">氏名</label>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :last_name, style: "width: 80%" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :first_name, style: "width: 80%" %>
+    </div>
+  </div>
+
+  <div class="row field mb-3">
+    <div class="col-md-2 d-flex align-items-center">
+      <label class="mb-0">フリガナ</label>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :last_name_kana, style: "width: 80%" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :first_name_kana, style: "width: 80%" %>
+    </div>
+  </div>
+
+  <div class="row field mb-3">
+    <div class="col-md-2">
+      <%= f.label :postal_code, "郵便番号" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :postal_code, style: "width: 80%" %>
+    </div>
+  </div>
+
+  <div class="row field mb-3">
+    <div class="col-md-2">
+      <%= f.label :address, "住所" %>
+    </div>
+    <div class="col-md-7">
+      <%= f.text_field :address, style: "width: 100%" %>
+    </div>
+  </div>
+
+  <div class="row field mb-3">
+    <div class="col-md-2">
+      <%= f.label :telephone_number, "電話番号" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :telephone_number, style: "width: 80%" %>
+    </div>
+  </div>
+
+  <div class="row field mb-4">
+    <div class="col-md-2">
+      <%= f.label :email, "メールアドレス" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :email, style: "width: 80%" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-3 actions">
+      <%= f.submit "編集内容を保存する", class: 'btn btn-success', style: "width: 90%" %>
+    </div>
+    <div class="col-md-3 text-right">
+      <%= link_to "退会する", confirm_customers_path, class: 'btn btn-danger w-50' %>
+    </div>
+  </div>
+
+  <% end %>
+</div>

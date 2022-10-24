@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NaganoCake</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <script src="https://kit.fontawesome.com/9711ab84b8.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="d-flex flex-column vh-100">
+    <header class="bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light border-bottom border-dark border-5 justify-content-center px-5">
+        <div class="px-0 mx-0 flex-grow-1 d-flex justify-content-between">
+          <h2 class="mb-0 d-flex align-items-center"style="font-style: italic">NaganoCake</h2>
+          <% if !current_customer.nil? %>
+          <p class="mb-0 d-flex align-items-center">ようこそ、<%= current_customer.last_name %>さん！</p>
+          <% end %>
+          <div>
+          <div class="collapse navbar-collapse flex-grow-0" id="navbarNavDropdown">
+            <ul class="navbar-nav justify-content-end">
+              <% if admin_signed_in? %>
+              <li class="nav-item border border-5 border-dark mr-3 bg-info">
+                <%= link_to "商品一覧", admin_items_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item border border-5 border-dark mr-3 bg-info">
+                <%= link_to "会員一覧", admin_customers_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item border border-5 border-dark mr-3 bg-info">
+                <%= link_to "注文履歴一覧", admin_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item border border-5 border-dark mr-3 bg-info">
+                <%= link_to "ジャンル一覧画面", admin_genres_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item border border-5 border-dark bg-info">
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' %>
+              </li>
+              <% elsif customer_signed_in? %>
+              <li class="nav-item border border-5 border-dark mr-3 bg-info">
+                <%= link_to "マイページ", customer_my_page_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item border border-5 border-dark mr-3 bg-info">
+                <%= link_to "商品一覧", items_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item border border-5 border-dark mr-3 bg-info">
+                <%= link_to "カート", cart_items_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item border border-5 border-dark bg-info">
+                <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'nav-link text-dark' %>
+              </li>
+              <% else %>
+              <li class="nav-item border border-5 border-dark mr-3 bg-info">
+                <%= link_to "About", about_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item border border-5 border-dark mr-3 bg-info">
+                <%= link_to "商品一覧", items_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item border border-5 border-dark mr-3 bg-info">
+                <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item border border-5 border-dark bg-info">
+                <%= link_to "ログイン", new_customer_session_path, class: 'nav-link text-dark' %>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="mt-2 d-flex justify-content-end">
+          <%= form_tag(items_path, method: :get) do %>
+          <div class="input-group">
+          <%= text_field_tag :search %>
+          <span class="input-btn">
+          <%= button_tag type: 'submit', class: 'btn btn-outline-secondary' do %>
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <% end %>
+          </span>
+          </div>
+          <% end %>
+          </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="h-100" style="padding-bottom: 80px">
+    <%= yield %>
+    </main>
+    <div class="push"></div>
+    <footer class="border-top border-dark fixed-bottom bg-secondary d-flex align-items-center", style="height: 70px">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <ul class="text-white list-unstyled d-flex justify-content-center">
+              <li class="mr-3">会社概要</li>
+              <li class="mr-3">利用規約</li>
+              <li><i class="fa-brands fa-twitter mr-3"></i></li>
+              <li><i class="fa-brands fa-instagram"></i></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

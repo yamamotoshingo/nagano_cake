@@ -1,0 +1,14 @@
+<div class="container h-100">
+  <div class="row h-100 align-items-center">
+    <div class="col text-center">
+      <h4 class="mb-5">本当に退会しますか？</h4>
+      <p class="mb-5 h4">
+        退会すると、会員登録情報や<br />
+        これまでの購入履歴が見れなくなります。<br />
+        退会する場合は、「退会する」をクリックしてください。
+      </p>
+      <%= link_to "退会しない", customer_my_page_path, class: 'btn btn-primary mr-5', style: "width: 15%" %>
+      <%= link_to "退会する", withdrawal_customers_path, method: :patch, data: { confirm: '本当に退会しますか？' }, class: 'btn btn-danger', style: "width: 15%" %>
+    </div>
+  </div>
+</div>

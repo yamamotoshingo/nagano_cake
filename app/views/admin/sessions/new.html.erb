@@ -1,0 +1,28 @@
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<h3 class="my-5"><span style="background-color: silver">管理者ログイン</span></h3>
+
+<%= form_with model: @admin, url: admin_session_path, class: 'form-horizontal' do |f| %>
+  <div class="field row justify-content-center my-5">
+    <%= f.label :email, "メールアドレス：", class: 'col-md-2 form-control-label' %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'col-md-5' %>
+  </div>
+
+  <div class="field row justify-content-center my-5">
+    <%= f.label :password, "パスワード：", class: 'col-md-2 form-control-label' %>
+    <%= f.password_field :password, autocomplete: "current-password", class: 'col-md-5'  %>
+  </div>
+
+  <div class="row actions justify-content-center">
+    <div class="col-md-2"></div>
+    <div class="col-md-5 px-0">
+    <%= f.submit "ログイン", class: 'btn btn-sm btn-primary w-25', style: "height: 40px" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render "admin/shared/links" %>
+</div>
+</div>
+</div>

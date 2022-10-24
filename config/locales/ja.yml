@@ -1,0 +1,56 @@
+ ja:
+    enums:
+      order:
+        payment_method:
+          credit_card: "クレジットカード"
+          transfer: "銀行振込"
+        order_status:
+          waiting_for_payment: "入金待ち"
+          payment_confirmation: "入金確認"
+          production: "制作中"
+          shipping_preparation: "発送準備中"
+          sent: "発送済み"
+      order_item:
+        production_status:
+          production_not_allowed: "制作不可"
+          waiting_for_production: "制作待ち"
+          under_production: "制作中"
+          production_completed: "制作完了"
+    views:
+      pagination:
+        first: "≪ First"
+        last: "Last ≫"
+        next: "Next >"
+        previous: "< Prev"
+        truncate: "&hellip;"
+    activerecord:
+      attributes:
+        cart_item:
+          amount: 個数
+        address:
+          postal_code: 郵便番号
+          address: 住所
+          name: 宛名
+        customer:
+          last_name: 姓
+          first_name: 名
+          last_name_kana: セイ
+          first_name_kana: メイ
+          postal_code: 郵便番号
+          address: 住所
+          telephone_number: 電話番号
+          email: メールアドレス
+        genre:
+          name: ジャンル名
+        item:
+          name: 商品名
+          introduction: 商品説明
+          genre_id: ジャンル
+          price: 税抜価格
+          is_active: 販売ステータス
+        order:
+          postal_code: 郵便番号
+          address: 住所
+          name: 宛名
+        order_item:
+          item_id: 商品

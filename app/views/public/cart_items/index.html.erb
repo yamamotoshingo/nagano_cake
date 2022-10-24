@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row mt-5 mb-4 justify-content-center">
+    <div class="col-md-11 d-flex justify-content-between align-items-end">
+      <h3 class="ml-3 mb-0"><span style="background-color: silver">ショッピングカート</span></h3>
+      <%= link_to "カートを空にする", destroy_all_cart_items_path, method: :delete, class: 'btn btn-danger' %>
+    </div>
+  </div>
+
+  <div class="row mb-4 justify-content-center">
+    <div class="col-md-11">
+      <table class="table table-bordered" style="border: 1.5px solid black">
+        <thead style="background-color: silver">
+          <tr>
+            <th class="px-1 h5" style="border: 1.5px solid black; width: 40%">商品名</th>
+            <th class="px-1 h5" style="border: 1.5px solid black; width: 15%">単価(税込)</th>
+            <th class="px-1 h5" style="border: 1.5px solid black; width: 15%">数量</th>
+            <th class="px-1 h5" style="border: 1.5px solid black; width: 15%">小計</th>
+            <th style="border: 1.5px solid black; width: 15%"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @cart_items.each do |cart_item| %>
+          <tr style="border-bottom: 1.5px solid black">
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black">
+              <%= image_tag cart_item.item.get_image, class: 'mr-3', style: "width: 70px; height: 50px" %>
+              <%= cart_item.item.name %>
+            </td>
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black"><%= cart_item.item.add_tax_price.to_s(:delimited) %></td>
+            <td class="p-1 align-middle text-center" style="border-right: 1.5px solid black">
+              <%= form_with model: cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>
+              <%= f.select :amount, *[1..10], {selected: cart_item.amount}, class: 'mr-2 mb-0 h6', style: "height: 35px" %>
+              <%= f.submit "変更", class: 'btn btn-success' %>
+              <% end %>
+            </td>
+            <td class="p-1 align-middle h6" style="border-right: 1.5px solid black"><%= cart_item.subtotal.to_s(:delimited) %></td>
+            <td class="text-center">
+              <%= link_to '削除する', cart_item_path(cart_item.id), method: :delete, class: 'btn btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+       </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mb-5 justify-content-center">
+    <div class="col-md-11 d-flex justify-content-between align-items-center">
+      <%= link_to "買い物を続ける", root_path, class: 'btn btn-primary h-75' %>
+      <table class="table table-bordered m-0" style="border: 1.5px solid black; width: 30%">
+        <tr>
+          <th class="px-1 h5 w-50" style="border: 1.5px solid black; background-color: silver">合計金額</th>
+          <td class="p-1 align-middle h6 w-50"><%= current_customer.total_price.to_s(:delimited) %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-11 text-center">
+      <% if @cart_items != [] %>
+      <%= link_to "情報入力に進む", new_order_path, class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  </div>
+</div>

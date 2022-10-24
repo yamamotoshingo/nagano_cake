@@ -1,0 +1,48 @@
+<div class="container px-0">
+  <div class="row mt-4">
+    <div class="col-md-2 px-0">
+      <div style="border: 1.5px solid black; width: 80%; height: 330px">
+      <h5 class="text-center mb-0" style="border-bottom: 1.5px solid black">ジャンル検索</h5>
+      <ul class="list-unstyled my-0 d-inline">
+        <% @genres.each do |genre| %>
+        <%= link_to items_path(id: genre.id) do %>
+        <li class="ml-3 my-2 text-dark"><%= genre.name %></li>
+        <% end %>
+        <% end %>
+        </ul>
+　　　</div>
+    </div>
+    <div class="col-md-7">
+    <%= image_tag "top_image.jpg", style: "width: 100%; height: 330px" %>
+    <p class="bg-light border border-dark position-absolute", style="opacity: 0.8; top: 50%; left: 50%; transform: translate(-50%, -50%)">
+    ようこそ長野CAKEへ！</br>
+    このサイトは、ケーキ販売のECサイトになります。</br>
+    会員でない方も商品の閲覧はできますが、</br>
+    購入には会員登録が必要になります。
+    </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 offset-md-2 my-3">
+      <h4 class="font-weight-bold">新着商品</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-10 px-0 d-flex">
+    <% @items.each do |item| %>
+    <div class="col-md-3">
+      <%= link_to item_path(item.id), class: 'text-dark' do %>
+      <%= image_tag item.get_image, style: "width: 100%; height: 150px" %>
+      <p class="my-2 font-weight-bold"><%= item.name %></p>
+      <p class="font-weight-bold">￥<%= item.price.to_s(:delimited) %></br>(￥<%= item.add_tax_price.to_s(:delimited) %>)</p>
+      <% end %>
+    </div>
+    <% end %>
+    </div>
+  </div>
+  <div class="row justify-content-end">
+  <u><%= link_to "全ての商品を見る＞", items_path %></u>
+  </div>
+</div>
